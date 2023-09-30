@@ -7,12 +7,24 @@ export default function NuevoSerie({ onCancel }) {
     titulo: "",
     descripcion: "",
     fecha_estreno: "",
-    estrellas: 0,
+    estrellas: "",
     genero: "",
-    precio_alquiler: 0,
+    precio_alquiler: "",
     atp: false,
-    estado: "",
+    estado: "AC",
   });
+  const generosDeSeries = [
+    "Acción",
+    "Comedia",
+    "Drama",
+    "Ciencia ficción",
+    "Aventura",
+    "Fantasía",
+    "Romance",
+    "Suspense",
+    "Documental",
+    "Animación",
+  ];
 
   const form = useRef(null);
 
@@ -53,7 +65,7 @@ export default function NuevoSerie({ onCancel }) {
         genero: "",
         precio_alquiler: "",
         atp: false,
-        estado: "",
+        estado: "AC",
       });
 
       form.current.reset();
@@ -129,18 +141,23 @@ export default function NuevoSerie({ onCancel }) {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="genero" className="block   text-gray-700 font-bold">
+          <label htmlFor="genero" className="block text-gray-700 font-bold">
             Género:
           </label>
-          <input
-            type="text"
+          <select
             id="genero"
             name="genero"
             value={formData.genero}
             onChange={handleChange}
             required
-            className="w-full  text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-          />
+            className="w-full text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            <option value="">Selecciona un género</option>
+            {generosDeSeries.map((genero) => (
+              <option key={genero} value={genero}>
+                {genero}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4">
           <label

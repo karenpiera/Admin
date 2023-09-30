@@ -13,6 +13,18 @@ export default function ModificarSerie({ serieId, onCancel, onModify }) {
     atp: false,
     estado: "",
   });
+  const generosDeSeries = [
+    "Acción",
+    "Comedia",
+    "Drama",
+    "Ciencia ficción",
+    "Aventura",
+    "Fantasía",
+    "Romance",
+    "Suspense",
+    "Documental",
+    "Animación",
+  ];
 
   const [mensaje, setMensaje] = useState("");
 
@@ -135,19 +147,25 @@ export default function ModificarSerie({ serieId, onCancel, onModify }) {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="genero" className="block   text-gray-700 font-bold">
+          <label htmlFor="genero" className="block text-gray-700 font-bold">
             Género:
           </label>
-          <input
-            type="text"
+          <select
             id="genero"
             name="genero"
             value={formData.genero}
             onChange={handleChange}
             required
-            className="w-full  text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-          />
+            className="w-full text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            <option value="">Selecciona un género</option>
+            {generosDeSeries.map((genero) => (
+              <option key={genero} value={genero}>
+                {genero}
+              </option>
+            ))}
+          </select>
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="precio_alquiler"
