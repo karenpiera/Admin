@@ -73,11 +73,12 @@ export default function ModificarSerie({ serieId, onCancel, onModify }) {
       const response = await axios.put(`/api/products/${serieId}`, formData);
 
       if (response.status === 200) {
-        setMensaje("Serie modificada exitosamente.");
+        window.alert("Serie modificada exitosamente.");
         onModify(); // Llama a la función proporcionada cuando se modifica la serie
       }
     } catch (error) {
       setMensaje("Error al modificar la serie.");
+      window.alert("Error al modificar la serie.");
     }
   };
   const handleClose = () => {

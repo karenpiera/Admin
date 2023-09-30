@@ -334,12 +334,20 @@ export default function Product() {
   };
 
   const handleEditSerie = () => {
-    if (selectedSerie) {
-      setShowEditForm(true);
+    if (!selectedSerie) {
+      // Si no se ha seleccionado una serie, muestra una alerta y detén la ejecución
+      alert("No hay serie para editarla.");
+      return;
     }
+
+    setShowEditForm(true);
   };
 
   const handleDeleteSerie = () => {
+    if (!selectedSerie) {
+      alert("No hay serie para eliminar.");
+      return; // Detener la función si no hay una serie seleccionada
+    }
     if (selectedSerie) {
       const confirmDelete = window.confirm("¿Seguro desea eliminar la serie?");
       if (confirmDelete) {
@@ -349,36 +357,45 @@ export default function Product() {
           .then(() => {
             setRefresh(!refresh);
             setSelectedSerie(null);
+            window.alert("Serie eliminada exitosamente.");
           })
           .catch((error) => {
             console.error("Error al eliminar la serie:", error);
+            window.alert("Error al eliminar la serie.");
           });
+      } else {
+        // Si el usuario hace clic en "Cancelar" en el cuadro de diálogo, muestra una alerta informativa
+        window.alert("Eliminación de serie cancelada.");
       }
     }
   };
 
   const handleUpdateEstado = () => {
-    if (selectedSerie) {
-      const confirmUpdate = window.confirm(
-        "¿Seguro desea actualizar el estado de la serie?"
-      );
-      if (confirmUpdate) {
-        // Si el usuario hace clic en "Aceptar" en el cuadro de diálogo, procede a actualizar el estado
-        const updatedEstado = selectedSerie.estado === "AC" ? "AN" : "AC"; // Cambiar de "AC" a "AN" y viceversa
+    if (!selectedSerie) {
+      // Si no se ha seleccionado una serie, muestra una alerta y detén la ejecución
+      alert("No hay serie para anular.");
+      return;
+    }
 
-        axios
-          .put(`/api/products/${selectedSerie.id}`, { estado: updatedEstado })
-          .then(() => {
-            setRefresh(!refresh);
-            setSelectedSerie((prevSelectedSerie) => ({
-              ...prevSelectedSerie,
-              estado: updatedEstado, // Actualiza el estado en el estado local
-            }));
-          })
-          .catch((error) => {
-            console.error("Error al actualizar el estado de la serie:", error);
-          });
-      }
+    const confirmUpdate = window.confirm(
+      "¿Seguro desea actualizar el estado de la serie?"
+    );
+
+    if (confirmUpdate) {
+      const updatedEstado = selectedSerie.estado === "AC" ? "AN" : "AC";
+
+      axios
+        .put(`/api/products/${selectedSerie.id}`, { estado: updatedEstado })
+        .then(() => {
+          setRefresh(!refresh);
+          setSelectedSerie((prevSelectedSerie) => ({
+            ...prevSelectedSerie,
+            estado: updatedEstado,
+          }));
+        })
+        .catch((error) => {
+          console.error("Error al actualizar el estado de la serie:", error);
+        });
     }
   };
 
@@ -447,7 +464,7 @@ export default function Product() {
                   <tr
                     key={serie.id}
                     className={`bg-white ${
-                      selectedSerieId === serie.id ? "bg-blue-200" : ""
+                      selectedSerieId === serie.id ? "bg-red-200" : ""
                     }`}
                     onClick={() => handleRowClick(serie.id)}
                     style={{ cursor: "pointer" }}></tr>
@@ -462,7 +479,7 @@ export default function Product() {
                     <tr
                       key={serie.id}
                       className={`bg-white ${
-                        selectedSerieId === serie.id ? "bg-red-200" : ""
+                        selectedSerieId === serie.id ? "bg-purple-400" : ""
                       }`}
                       onClick={() => handleRowClick(serie.id)} // Manejar la selección al hacer clic en la fila
                       style={{ cursor: "pointer" }} // Cambiar el cursor al hacer clic

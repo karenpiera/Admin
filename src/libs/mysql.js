@@ -1,3 +1,18 @@
+// import mysql from "serverless-mysql";
+
+// export const conn = mysql({
+//   config: {
+//     host: process.env.MYSQLHOST,
+//     user: process.env.USUARIOMYSQL,
+//     password: process.env["CONTRASEÑA MYSQL"],
+//     port: parseInt(process.env.MYSQLPUERTO),
+//     database: process.env["BASE DE DATOS MYSQL"],
+//     ssl: {
+//       rejectUnauthorized: false,
+//     },
+//   },
+// });
+
 import mysql from "serverless-mysql";
 
 export const conn = mysql({
