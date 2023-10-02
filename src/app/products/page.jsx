@@ -221,7 +221,7 @@ export default function Product() {
                   <tr
                     key={serie.id}
                     className={`bg-white ${
-                      selectedSerieId === serie.id ? "bg-red-200" : ""
+                      selectedSerieId === serie.id ? "bg-orange-200" : ""
                     }`}
                     onClick={() => handleRowClick(serie.id)}
                     style={{ cursor: "pointer" }}></tr>
