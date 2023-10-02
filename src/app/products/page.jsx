@@ -274,6 +274,7 @@ export default function Product() {
       try {
         const response = await axios.get("/api/products");
         setSeries(response.data);
+        console.log(fetchData);
       } catch (error) {
         console.error("Error al obtener la lista de series:", error);
       }
@@ -281,16 +282,16 @@ export default function Product() {
 
     fetchData();
   }, [refresh]);
-  useEffect(() => {
-    const filterSeries = () => {
-      const filtered = series.filter((serie) =>
-        serie.titulo.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredSeries(filtered);
-    };
+  // useEffect(() => {
+  //   const filterSeries = () => {
+  //     const filtered = series.filter((serie) =>
+  //       serie.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //     setFilteredSeries(filtered);
+  //   };
 
-    filterSeries();
-  }, [searchTerm, series]);
+  //   filterSeries();
+  // }, [searchTerm, series]);
 
   const handleRowClick = (serieId) => {
     // Obtener la serie seleccionada por su ID
@@ -345,7 +346,7 @@ export default function Product() {
 
   const handleDeleteSerie = () => {
     if (!selectedSerie) {
-      alert("No hay serie para eliminar.");
+      window.alert("No hay serie para eliminar.");
       return; // Detener la función si no hay una serie seleccionada
     }
     if (selectedSerie) {
