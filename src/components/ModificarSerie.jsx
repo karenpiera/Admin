@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ModificarSerie({ serieId, onCancel, onModify }) {
+export default function ModificarSerie({ serieId, serie, onCancel, onModify }) {
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
@@ -34,20 +34,31 @@ export default function ModificarSerie({ serieId, onCancel, onModify }) {
       try {
         const response = await axios.get(`/api/products/${serieId}`);
         const serie = response.data;
-        const fechaISO = new Date(serie.fecha_estreno)
-          .toISOString()
-          .split("T")[0];
-        setFormData({
-          titulo: serie.titulo,
-          descripcion: serie.descripcion,
-          fecha_estreno: fechaISO,
-          estrellas: serie.estrellas,
-          genero: serie.genero,
-          precio_alquiler: serie.precio_alquiler,
-          atp: serie.atp,
-          estado: serie.estado,
-        });
-        setShowForm(true); // Mostrar el formulario después de cargar los datos
+        console.log("Datos de la serie:", serie);
+
+        if (serie.length > 0) {
+          // Verificar que haya datos en el arreglo serie
+          console.log("Fecha de estreno:", serie[0].fecha_estreno);
+          console.log("Título:", serie[0].titulo);
+
+          const fechaISO = new Date(serie[0].fecha_estreno)
+
+            .toISOString()
+            .split("T")[0];
+
+          setFormData({
+            titulo: serie[0].titulo,
+            descripcion: serie[0].descripcion,
+            fecha_estreno: fechaISO,
+            estrellas: serie[0].estrellas,
+            genero: serie[0].genero,
+            precio_alquiler: serie[0].precio_alquiler,
+            atp: serie[0].atp,
+            estado: serie[0].estado,
+          });
+        } else {
+          console.error("No se encontraron datos de la serie.");
+        }
       } catch (error) {
         console.error("Error al obtener datos de la serie:", error);
         setMensaje("Error al cargar los datos de la serie.");

@@ -96,6 +96,7 @@ export default function Product() {
       alert("No hay serie para editarla.");
       return;
     }
+    setEditingSerie(selectedSerie); // Establecer los datos de la serie seleccionada para editar
 
     setShowEditForm(true);
   };
@@ -316,6 +317,7 @@ export default function Product() {
       {showEditForm && selectedSerie && (
         <ModificarSerie
           serieId={selectedSerie.id}
+          serie={selectedSerie} // Pasar los datos de la serie a editar como prop
           onCancel={() => {
             setShowEditForm(false);
           }}
