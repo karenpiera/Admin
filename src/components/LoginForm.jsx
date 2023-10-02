@@ -20,7 +20,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     // Verifica las credenciales aquí y redirige a la página de productos si son correctas
-    if (email === "hola@pragmasoft.com.ar" && password === "12345678") {
+    if (email === "hola@pragmasoft.com.ar" && password === "pragmasoft") {
       router.push("/products"); // Redirige a la página de productos
     } else {
       setError("Usuario o contraseña incorrectos");
