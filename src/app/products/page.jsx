@@ -183,7 +183,7 @@ export default function Product() {
           className="mt-8 bg-white"
           style={{ height: "400px", overflowY: "auto" }}>
           {filteredSeries.length > 0 ? (
-            <table className="border-collapse w-full border text-gray-700">
+            <table className=" text-gray-700">
               <thead>
                 <tr className="bg-gray-100 sticky top-0">
                   <th className="border p-2  text-gray-700 ">Título</th>
@@ -220,9 +220,7 @@ export default function Product() {
                 {filteredSeries.map((serie) => (
                   <tr
                     key={serie.id}
-                    className={`bg-white ${
-                      selectedSerieId === serie.id ? "bg-orange-200" : ""
-                    }`}
+                    className={"bg-blue-400"}
                     onClick={() => handleRowClick(serie.id)}
                     style={{ cursor: "pointer" }}></tr>
                 ))}
@@ -235,7 +233,7 @@ export default function Product() {
                   .map((serie) => (
                     <tr
                       key={serie.id}
-                      className={`bg-white ${
+                      className={` ${
                         selectedSerieId === serie.id ? "bg-orange-400" : ""
                       }`}
                       onClick={() => handleRowClick(serie.id)} // Manejar la selección al hacer clic en la fila
